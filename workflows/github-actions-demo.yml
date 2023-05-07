@@ -2,13 +2,7 @@ name: GitHub Actions Demo
 on: [push]
 
 jobs:
-  show-python-version:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Show Python version
-      run: python --version
-
-  pylint-test:
+  test:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -16,11 +10,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: 3.9
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Run pylint
-      run: |
-        pylint app.py
+        pip install pylint
+    - name: Display Python version
+      run: python --version
+    - name: Run Pylint
+      run: pylint app.py
